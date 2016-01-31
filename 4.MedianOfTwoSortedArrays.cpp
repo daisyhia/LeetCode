@@ -1,5 +1,9 @@
 #include <vector>
 using namespace std;
+// 长度大的数列为m，长度小的数列为n
+// 比较中间值，如果n的小，n砍掉前面n/2个数，m砍掉后面n/2个数，反之，n砍后面的m砍前面的
+// 复杂度logn
+// n没有n剩1个、n剩俩m剩偶数、n在m单边的情况单写了60行，估计揉吧揉吧可以十几行弄一个方法里，以后再弄吧
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
@@ -10,7 +14,7 @@ public:
         if(size1 >= size2) return qSort(nums1, nums2, 0, size1-1, 0, size2-1);
         return qSort(nums2, nums1, 0, size2-1, 0, size1-1);
     }
-	double qSort(vector<int> &a, vector<int> &b,  int aleft, int aright, int bleft, int bright) {
+    double qSort(vector<int> &a, vector<int> &b,  int aleft, int aright, int bleft, int bright) {
 	int bn = bright - bleft;
 	int an = aright - aleft;
 	if(a[aright] <= b[bleft]) {
@@ -77,12 +81,11 @@ public:
 	return qSort(a, b, aleft, aright, bleft, bright);
 	
 }
-double medium(vector<int> v, int left, int right) {
+    double medium(vector<int> v, int left, int right) {
 	int size = right - left + 1;
 	int n = size/2 + left;
 	double result = 0;
 	if(size%2 == 0) return (double)(v[n] + v[n-1])/2;
 	return v[n];
 }
-    
 };

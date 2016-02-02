@@ -3,72 +3,38 @@ using namespace std;
 class Solution {
 public:
     string intToRoman(int num) {
-        char a[20] = "";
+        char s[15] = "";
+        char r[7] = {'M','D','C','L','X','V','I'};
         int t = num/1000;
         int i = -1;
         while(t>0) {
-            a[++i] = 'M';
+            s[++i] = 'M';
             t--;
         }
-        num = num%1000;
-        t = num/100;
-        if(t==9) {
-            a[++i] = 'C';
-            a[++i] = 'M';
-        } else if(t>=5) {
-            a[++i] = 'D';
-            while(t>5) {
-                a[++i] = 'C';
-                t--;
-            }
-        } else if(t==4) {
-            a[++i] = 'C';
-            a[++i] = 'D';
-        } else {
-            while(t>0) {
-                a[++i] = 'C';
-                t--;
-            }
-        }
-        num = num%100;
-        t = num/10;
-        if(t==9) {
-            a[++i] = 'X';
-            a[++i] = 'C';
-        } else if(t>=5) {
-            a[++i] = 'L';
-            while(t>5) {
-                a[++i] = 'X';
-                t--;
-            }
-        } else if(t==4) {
-            a[++i] = 'X';
-            a[++i] = 'L';
-        } else {
-            while(t>0) {
-                a[++i] = 'X';
-                t--;
+        int times = 1000;
+        for(int j=2;j<7;j=j+2) {
+            num %= times;
+            times /= 10;
+            t = num/times;
+            if(t==9) {
+                s[++i] = r[j];
+                s[++i] = r[j-2];
+            } else if(t>=5) {
+                s[++i] = r[j-1];
+                while(t>5) {
+                    s[++i] = r[j];
+                    t--;
+                }
+            } else if(t==4) {
+                s[++i] = r[j];
+                s[++i] = r[j-1];
+            } else {
+                while(t>0) {
+                    s[++i] = r[j];
+                    t--;
+                }
             }
         }
-        t = num%10;
-        if(t==9) {
-            a[++i] = 'I';
-            a[++i] = 'X';
-        } else if(t>=5) {
-            a[++i] = 'V';
-            while(t>5) {
-                a[++i] = 'I';
-                t--;
-            }
-        } else if(t==4) {
-            a[++i] = 'I';
-            a[++i] = 'V';
-        } else {
-            while(t>0) {
-                a[++i] = 'I';
-                t--;
-            }
-        }
-        return a;
+        return s;
     }
 };

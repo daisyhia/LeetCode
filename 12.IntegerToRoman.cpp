@@ -4,18 +4,13 @@ class Solution {
 public:
     string intToRoman(int num) {
         char s[15] = "";
-        char r[7] = {'M','D','C','L','X','V','I'};
-        int t = num/1000;
+        char r[9] = {0,0,'M','D','C','L','X','V','I'};
         int i = -1;
-        while(t>0) {
-            s[++i] = 'M';
-            t--;
-        }
         int times = 1000;
-        for(int j=2;j<7;j=j+2) {
+        for(int j=2;j<9;j=j+2) {
+            int t = num/times;
             num %= times;
             times /= 10;
-            t = num/times;
             if(t==9) {
                 s[++i] = r[j];
                 s[++i] = r[j-2];
